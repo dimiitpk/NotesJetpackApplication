@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="note_background_colors">
+        <item>@color/def_color</item>
+        <item>@color/red</item>
+        <item>@color/orange</item>
+        <item>@color/yellow</item>
+        <item>@color/light_green</item>
+        <item>@color/cyan</item>
+        <item>@color/blue</item>
+        <item>@color/purple</item>
+    </array>
+</resources>

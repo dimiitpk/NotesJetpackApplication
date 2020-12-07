@@ -1,0 +1,104 @@
+import dependencies.DebugDependencies
+import dependencies.Dependencies
+import dependencies.AnnotationProcessorsDependencies
+import dependencies.TestAndroidDependencies
+import dependencies.TestDependencies
+
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-parcelize'
+    id 'kotlin-kapt'
+    id 'androidx.navigation.safeargs.kotlin'
+    id 'dagger.hilt.android.plugin'
+}
+
+android {
+    compileSdkVersion(BuildAndroidConfig.COMPILE_SDK_VERSION)
+    buildToolsVersion(BuildAndroidConfig.BUILD_TOOLS_VERSION)
+
+    defaultConfig {
+        applicationId(BuildAndroidConfig.APPLICATION_ID)
+        minSdkVersion(BuildAndroidConfig.MIN_SDK_VERSION)
+        targetSdkVersion(BuildAndroidConfig.TARGET_SDK_VERSION)
+        versionCode BuildAndroidConfig.VERSION_CODE
+        versionName BuildAndroidConfig.VERSION_NAME
+
+        testInstrumentationRunner BuildAndroidConfig.TEST_INSTRUMENTATION_RUNNER
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += [
+                        "room.schemaLocation": "$projectDir/schemas".toString(),
+                        "room.incremental"   : "true"]
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled BuildTypeRelease.isMinifyEnabled
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled BuildTypeDebug.isMinifyEnabled
+            applicationIdSuffix = BuildTypeDebug.applicationIdSuffix
+            versionNameSuffix = BuildTypeDebug.versionNameSuffix
+        }
+    }
+
+    buildFeatures {
+        dataBinding true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+}
+
+dependencies {
+
+    implementation(Dependencies.KOTLIN)
+    implementation(Dependencies.CORE_KTX)
+    implementation(Dependencies.APPCOMPAT)
+    implementation(Dependencies.MATERIAL)
+    implementation(Dependencies.CONSTRAIN_LAYOUT)
+    implementation(Dependencies.NAVIGATION_UI)
+    implementation(Dependencies.NAVIGATION_FRAGMENT)
+    implementation(Dependencies.DAGGER_HILT)
+    implementation(Dependencies.ROOM)
+    implementation(Dependencies.ROOM_KTX)
+    implementation(Dependencies.LIFECYCLE_EXTENSIONS)
+    implementation(Dependencies.LIFECYCLE_VIEWMODEL)
+    implementation(Dependencies.FRAGMENT_KTX)
+    implementation(Dependencies.COROUTINES)
+    implementation(Dependencies.COROUTINES_ANDROID)
+    implementation(Dependencies.DAGGER_HILT_VM)
+    implementation(Dependencies.SWIPE_REFRESH_LAYOUT)
+    implementation(Dependencies.RECYCLE_VIEW)
+    implementation(Dependencies.LIVEDATA_KTX)
+    implementation(Dependencies.PAGING)
+    implementation(Dependencies.DATASTORE_PREF)
+
+
+
+    implementation(Dependencies.MATERIAL_DIALOG_CORE)
+    implementation(Dependencies.MATERIAL_DIALOG_BOTTOM_SHEETS)
+    implementation(Dependencies.MATERIAL_DIALOG_COLORS)
+    implementation(Dependencies.MATERIAL_DIALOG_DATE_TIME)
+
+    debugImplementation(DebugDependencies.LEAKCANARY)
+
+    kapt AnnotationProcessorsDependencies.DAGGER_HILT
+    kapt AnnotationProcessorsDependencies.ROOM
+    kapt AnnotationProcessorsDependencies.DAGGER_HILT_VM
+
+    testImplementation(TestDependencies.JUNIT)
+
+    androidTestImplementation(TestAndroidDependencies.JUNIT)
+    androidTestImplementation(TestAndroidDependencies.ESPRESSO)
+}

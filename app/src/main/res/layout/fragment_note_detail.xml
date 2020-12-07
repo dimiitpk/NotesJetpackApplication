@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.dimi.advnotes.presentation.common.extensions.ConvertExtensionsKt" />
+
+        <import type="android.graphics.Color" />
+
+        <variable
+            name="viewModel"
+            type="com.dimi.advnotes.presentation.create.NoteDetailViewModel" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/detail_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:transitionName="@string/transition_card_detail_name"
+        app:cardElevation="0dp">
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            pickBackgroundColor="@{viewModel.note.color}"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/app_bar_layout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/app_bar_height"
+                android:layout_alignParentTop="true"
+                android:background="@android:color/transparent"
+                android:elevation="0dp"
+                app:elevation="0dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <include
+                    android:id="@+id/included_detail_toolbar"
+                    layout="@layout/toolbar_detail"
+                    app:viewModel="@{viewModel}" />
+
+            </com.google.android.material.appbar.AppBarLayout>
+
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/nested_scroll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraint_detail_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/title_input_field"
+                        style="@style/TextAppearance.CreateTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/text_in_card_margin"
+                        android:background="@android:color/transparent"
+                        android:ellipsize="end"
+                        android:focusable="@{viewModel.state.focusable}"
+                        android:focusableInTouchMode="@{viewModel.state.focusable}"
+                        android:hint="@string/title_ellipsize"
+                        android:singleLine="true"
+                        android:text="@={viewModel.note.title}"
+                        app:layout_constraintEnd_toStartOf="@+id/three_dots"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/input_field"
+                        style="@style/TextAppearance.NoteTitle"
+                        gone="@{!viewModel.note.checkItems.empty}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/text_in_card_margin"
+                        android:background="@android:color/transparent"
+                        android:gravity="top|start"
+                        android:hint="@string/note_ellipsize"
+                        android:text="@={viewModel.note.body}"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/title_input_field" />
+
+                    <ImageView
+                        android:id="@+id/three_dots"
+                        invisible="@{viewModel.note.checkItems.empty}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:contentDescription="@string/todo"
+                        android:onClick="@{() -> viewModel.removeAllCheckItems()}"
+                        android:src="@drawable/ic_more_dots"
+                        app:layout_constraintBottom_toBottomOf="@+id/title_input_field"
+                        app:layout_constraintEnd_toEndOf="@+id/check_items_recycler_view"
+                        app:layout_constraintTop_toTopOf="@+id/title_input_field" />
+
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/check_items_recycler_view"
+                        visible="@{!viewModel.note.checkItems.empty}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/title_input_field"
+                        tools:listitem="@layout/check_list_item" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.core.widget.NestedScrollView>
+
+            <com.google.android.material.chip.Chip
+                style="@style/Widget.MaterialComponents.Chip.Action"
+                visible="@{!viewModel.note.checkItems.empty}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:onClick="@{() -> viewModel.addNewCheckItem()}"
+                android:text="@string/list_item"
+                app:chipSurfaceColor="@android:color/transparent"
+                android:layout_marginEnd="@dimen/default_view_margin"
+                app:chipIcon="@drawable/ic_add"
+                app:chipStrokeWidth="1dp"
+                app:layout_anchor="@id/nested_scroll"
+                app:layout_anchorGravity="bottom|end" />
+
+            <ImageView
+                android:id="@+id/add_box"
+                gone="@{!viewModel.note.checkItems.empty}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|start"
+                android:layout_margin="@dimen/text_in_card_margin"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:contentDescription="@string/todo"
+                android:focusable="true"
+                android:onClick="@{() -> viewModel.addNewCheckItem()}"
+                android:src="@drawable/ic_baseline_add_box_24" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/last_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center"
+                android:layout_margin="@dimen/text_in_card_margin"
+                android:background="@android:color/transparent"
+                android:text="@{@string/last_edit(ConvertExtensionsKt.toSimpleString(viewModel.note.updatedAt))}" />
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

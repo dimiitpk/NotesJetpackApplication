@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.dimi.advnotes.presentation.common.extensions.ConvertExtensionsKt" />
+
+        <variable
+            name="viewModel"
+            type="com.dimi.advnotes.presentation.create.NoteDetailViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        style="@style/AppTheme.SurfaceStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/header_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/set_reminder"
+            android:textAppearance="?attr/textAppearanceBody1"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/default_view_margin"
+            android:contentDescription="@string/todo"
+            android:onClick="@{()->viewModel.resetReminder()}"
+            android:src="@drawable/ic_restore"
+            app:layout_constraintBottom_toBottomOf="@id/header_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/header_text"
+            app:tint="@color/colorError" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/time"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/recycler_view_item_padding"
+            android:layout_marginTop="@dimen/recycler_view_item_padding"
+            android:layout_marginEnd="@dimen/recycler_view_item_padding"
+            android:gravity="center|end"
+            android:onClick="@{()->viewModel.openTimePicker()}"
+            android:text="@{viewModel.reminder.timeString}"
+            android:textAllCaps="false"
+            android:textAppearance="?attr/textAppearanceBody2"
+            android:textColor="@color/colorOnSurface"
+            android:textStyle="bold|italic"
+            app:icon="@drawable/ic_time"
+            app:iconGravity="start"
+            app:iconTint="@color/colorOnSurface"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/header_text"
+            app:strokeColor="@color/light_green"
+            app:strokeWidth="1dp"
+            tools:text="21:00" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/date"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/recycler_view_item_padding"
+            android:gravity="center|end"
+            android:onClick="@{()->viewModel.openDatePicker()}"
+            android:text="@{viewModel.reminder.dateString}"
+            android:textAllCaps="false"
+            android:textAppearance="?attr/textAppearanceBody2"
+            android:textColor="@color/colorOnSurface"
+            android:textStyle="bold|italic"
+            app:icon="@drawable/ic_calendar"
+            app:iconGravity="start"
+            app:iconTint="@color/colorOnSurface"
+            app:layout_constraintEnd_toEndOf="@+id/time"
+            app:layout_constraintStart_toStartOf="@+id/time"
+            app:layout_constraintTop_toBottomOf="@+id/time"
+            app:strokeColor="@color/blue"
+            app:strokeWidth="1dp"
+            tools:text="21. november" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/repeating"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/recycler_view_item_padding"
+            android:gravity="center|end"
+            android:text="@{viewModel.reminder.repeatingString}"
+            android:textAllCaps="false"
+            android:textAppearance="?attr/textAppearanceBody2"
+            android:textColor="@color/colorOnSurface"
+            android:textStyle="bold|italic"
+            app:icon="@drawable/ic_loop"
+            app:iconGravity="start"
+            app:iconTint="@color/colorOnSurface"
+            app:layout_constraintEnd_toEndOf="@+id/time"
+            app:layout_constraintStart_toStartOf="@+id/time"
+            app:layout_constraintTop_toBottomOf="@+id/date"
+            app:strokeColor="@color/purple"
+            app:strokeWidth="1dp"
+            tools:text="No repeating" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="end"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/repeating">
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/button_in_linear_margin"
+                android:onClick="@{()->viewModel.dismissDialog()}"
+                android:text="@string/cancel"
+                android:textAllCaps="false"
+                android:textColor="@color/colorOnSurface" />
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/button_in_linear_margin"
+                android:onClick="@{()->viewModel.confirmReminder()}"
+                android:text="@string/confirm"
+                android:textAllCaps="false"
+                android:textAppearance="?attr/textAppearanceBody2" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

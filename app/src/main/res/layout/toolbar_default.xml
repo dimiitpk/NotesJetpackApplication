@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.dimi.advnotes.presentation.list.NoteListViewModel" />
+    </data>
+    <!--    style="@style/Widget.MaterialComponents.Toolbar.Primary"-->
+    <!--    android:background="@color/colorSurface"-->
+    <!--    roundedCorners="@{true}"-->
+    <!--    android:elevation="@dimen/two_dp"-->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="0dp"
+        app:contentInsetStart="@dimen/zero_dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/search_view"
+                style="@style/CustomSearchView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:imeOptions="flagNoExtractUi"
+                app:iconifiedByDefault="false"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/layout_change_button"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:queryHint="@string/search_hint" />
+
+            <ImageView
+                android:id="@+id/layout_change_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/default_view_margin"
+                android:contentDescription="@string/todo"
+                android:onClick="@{() -> viewModel.changeViewLayout()}"
+                android:src="@{viewModel.userPreferences.layoutMode == 1 ? @drawable/ic_grid_view : @drawable/ic_list_view}"
+                app:layout_constraintBottom_toBottomOf="@id/search_view"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/search_view" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.appbar.MaterialToolbar>
+</layout>

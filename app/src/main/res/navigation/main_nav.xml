@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_nav"
+    app:startDestination="@id/noteListFragment">
+
+    <fragment
+        android:id="@+id/noteListFragment"
+        android:name="com.dimi.advnotes.presentation.list.NoteListFragment"
+        android:label="NoteListFragment">
+        <action
+            android:id="@+id/action_noteListFragment_to_detail_nav"
+            app:destination="@id/detail_nav"
+            app:popUpToInclusive="false">
+            <argument
+                android:name="noteId"
+                android:defaultValue="-1L"
+                app:argType="long" />
+        </action>
+    </fragment>
+    <include app:graph="@navigation/detail_nav" />
+</navigation>

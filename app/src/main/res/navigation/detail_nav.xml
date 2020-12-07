@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/detail_nav"
+    app:startDestination="@id/noteCreateFragment">
+    <fragment
+        android:id="@+id/noteCreateFragment"
+        android:name="com.dimi.advnotes.presentation.create.NoteDetailFragment"
+        android:label="NoteCreateFragment">
+        <action
+            android:id="@+id/action_noteCreateFragment_to_noteListFragment"
+            app:destination="@id/noteListFragment"
+            app:popUpTo="@id/noteListFragment"
+            app:popUpToInclusive="true"/>
+        <argument
+            android:name="noteId"
+            android:defaultValue="-1L"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_noteCreateFragment_to_noteSettingsDialogFragment"
+            app:destination="@id/noteSettingsDialogFragment" />
+        <action
+            android:id="@+id/action_noteCreateFragment_to_noteReminderDialog"
+            app:destination="@id/noteReminderDialog" />
+    </fragment>
+    <dialog
+        android:id="@+id/noteReminderDialog"
+        android:name="com.dimi.advnotes.presentation.create.dialogs.ReminderDialogFragment"
+        android:label="NoteReminderDialogFragment">
+        <action
+            android:id="@+id/action_noteReminderDialog_to_noteCreateFragment"
+            app:destination="@id/noteCreateFragment" />
+    </dialog>
+    <dialog
+        android:id="@+id/noteSettingsDialogFragment"
+        android:name="com.dimi.advnotes.presentation.create.dialogs.NoteMoreFragment"
+        android:label="NoteSettingsDialogFragment" />
+</navigation>

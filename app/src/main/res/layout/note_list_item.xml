@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="clickListener"
+            type="android.view.View.OnClickListener" />
+        <variable
+            name="viewModel"
+            type="com.dimi.advnotes.presentation.list.NoteListViewModel" />
+        <variable
+            name="note"
+            type="com.dimi.advnotes.domain.model.Note" />
+    </data>
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card"
+        style="@style/CustomCardView"
+        pickCardBackgroundColor="@{note.color}"
+        state_checked="@{note.selected}"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checkable="true"
+        android:elevation="0dp"
+        android:foreground="@android:color/transparent"
+        android:onClick="@{clickListener}"
+        android:onLongClick="@{() -> viewModel.longClickOnNoteView(note)}"
+        android:transitionName="@{@string/transition_card_name_id(String.valueOf(note.id))}"
+        app:cardElevation="0dp"
+        app:cardForegroundColor="@android:color/transparent"
+        app:checkedIconTint="@color/colorOnSurface"
+        app:strokeColor="@color/stroke_color"
+        app:strokeWidth="1dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:elevation="0dp"
+            android:padding="@dimen/text_in_card_margin">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/title"
+                style="@style/TextAppearance.NoteTitle"
+                visible="@{note.title.length() > 0}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/text_in_card_half_margin"
+                android:clickable="false"
+                android:text="@{note.title}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@tools:sample/lorem" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/body"
+                style="@style/TextAppearance.NoteBody"
+                visible="@{note.checkItems.size() == 0}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/title"
+                android:clickable="false"
+                android:text="@{note.body}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/title"
+                app:layout_constraintTop_toBottomOf="@+id/title"
+                tools:text="@tools:sample/lorem" />
+
+            <LinearLayout
+                android:id="@+id/check_items_list"
+                visible="@{note.checkItems.size() != 0}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/body"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/title"
+                app:layout_constraintTop_toBottomOf="@+id/title" />
+        </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</layout>
