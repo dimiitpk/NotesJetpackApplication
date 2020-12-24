@@ -23,8 +23,7 @@ Work in progress.
 
 ## 
 
-<img src=pictures/notes_light.png width=250 >
-<img src=pictures/notes_dark.png width=250 >
+<img src=pictures/notes_light.png width=250 ><img src=pictures/notes_dark.png width=250 >
 <img src=pictures/notes_linear_dark.png width=250 >
 <img src=pictures/multi_selection.png width=250 >
 <img src=pictures/archive_light.png width=250 >
