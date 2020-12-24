@@ -22,3 +22,6 @@ Work in progress.
   * Every phone manufacturer has a different saving battery policy, e.g killing app and AlarmManager with it.
 
 ## 
+
+<img src=pictures/notes_light.png width=250 >
+<img src=pictures/notes_dark.png width=250 >
