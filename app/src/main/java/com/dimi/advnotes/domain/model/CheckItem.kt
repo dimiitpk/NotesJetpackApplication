@@ -10,5 +10,5 @@ data class CheckItem(
     var text: String = "",
     var checked: Boolean = false,
     var lastUpdated: Long = 0L,
-    var focus: Boolean = true
+    var focus: Boolean = false
 ) : Parcelable

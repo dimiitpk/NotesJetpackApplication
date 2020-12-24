@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="checkItem"
+            type="com.dimi.advnotes.domain.model.CheckItem" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <CheckBox
+            android:id="@+id/checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="-10dp"
+            android:layout_marginTop="-10dp"
+            android:layout_marginEnd="-4dp"
+            android:layout_marginBottom="-10dp"
+            android:background="@android:color/transparent"
+            android:buttonTint="?attr/colorControlNormal"
+            android:checked="@{checkItem.checked}"
+            android:clickable="false"
+            android:focusable="false"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:scaleX="0.7"
+            android:scaleY="0.7"
+            tools:checked="true" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textInputEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/checkbox"
+            android:background="@android:color/transparent"
+            android:clickable="false"
+            android:ellipsize="end"
+            android:focusable="false"
+            android:singleLine="true"
+            android:text="@{checkItem.text}"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+            tools:strikeThrough="@{checkItem.checked}"
+            tools:text="@tools:sample/lorem" />
+
+    </RelativeLayout>
+</layout>

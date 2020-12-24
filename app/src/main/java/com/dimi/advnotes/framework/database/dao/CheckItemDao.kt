@@ -5,9 +5,10 @@ import androidx.room.Query
 import androidx.room.Transaction
 import com.dimi.advnotes.framework.database.model.CheckItemCacheEntity
 import com.dimi.advnotes.util.Constants
+import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface CheckItemDao: BaseDao<CheckItemCacheEntity> {
+interface CheckItemDao : BaseDao<CheckItemCacheEntity> {
 
     /**
      * Check if items exist, if exist update them,
@@ -26,10 +27,21 @@ interface CheckItemDao: BaseDao<CheckItemCacheEntity> {
         }
     }
 
-    @Query("""
+    @Query(
+        """
         DELETE FROM check_item
         WHERE lastUpdated != :lastUpdated 
         AND note_id = :noteId
-    """)
+    """
+    )
     suspend fun deleteUnused(lastUpdated: Long, noteId: Long)
+
+    @Query(
+        """
+        SELECT * FROM check_item
+        WHERE note_id = :id
+        ORDER BY order_ ASC
+    """
+    )
+    fun observeCheckItemsByNote(id: Long): Flow<List<CheckItemCacheEntity>>
 }

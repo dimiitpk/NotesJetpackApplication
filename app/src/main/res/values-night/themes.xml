@@ -1,98 +1,20 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources >
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
-        <item name="colorOnPrimary">@color/colorOnPrimary</item>
-        <item name="colorSecondary">@color/colorSecondary</item>
-        <item name="colorSecondaryVariant">@color/colorSecondaryVariant</item>
-        <item name="colorOnSecondary">@color/colorOnSecondary</item>
-        <item name="colorError">@color/colorError</item>
-        <item name="colorOnError">@color/colorOnError</item>
-        <item name="colorSurface">@color/colorSurface</item>
-        <item name="colorOnSurface">@color/colorOnSurface</item>
-        <item name="colorOnBackground">@color/colorOnBackground</item>
-        <item name="android:colorBackground">@color/colorBackground</item>
-        <!-- App Bar -->
-        <item name="windowActionModeOverlay">true</item>
-        <item name="actionModeStyle">@style/CustomActionModeToolbar</item>
-<!--        <item name="actionModeBackground">@color/colorSurface</item>-->
-        <item name="actionModeCloseDrawable">@drawable/ic_close</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">@android:color/transparent</item>
-        <!-- Navigation bar color. -->
-        <item name="android:navigationBarColor">@color/nav_bar</item>
-        <!-- Customize your theme here. -->
-        <!-- Material Dialogs. -->
-        <item name="md_background_color">@color/colorSurface</item>
-        <item name="md_color_content">@color/colorOnSurface</item>
-        <item name="md_color_title">@color/colorOnSurface</item>
-        <item name="md_color_button_text">@color/colorOnSurface</item>
-        <!-- SnackBar -->
-        <item name="snackbarStyle">@style/CustomSnackBarStyle</item>
-        <item name="snackbarTextViewStyle">@style/CustomSnackBarTextStyle</item>
-        <item name="snackbarButtonStyle">@style/CustomSnackBarButtonStyle</item>
+    <style name="AppTheme.DayNight.Final" parent="AppTheme">
 
-        <item name="android:windowBackground">?android:colorBackground</item>
-        <item name="android:windowLightStatusBar" tools:ignore="NewApi">false</item>
+        <item name="colorPrimary">@color/purple_200</item>
+        <item name="colorPrimaryVariant">@color/purple_600</item>
+        <item name="colorSecondary">@color/green_200</item>
+        <item name="colorSecondaryVariant">@color/green_500</item>
+        <item name="android:colorBackground">@color/black_800</item>  <!--        900-->
+        <item name="colorSurface">@color/black_800</item>
+        <item name="colorError">@color/red_200</item>
+        <item name="colorOnPrimary">@color/black_900</item>
+        <item name="colorOnSecondary">@color/black_900</item>
+        <item name="colorOnBackground">@color/white_50</item>
+        <item name="colorOnSurface">@color/white_50</item>
+        <item name="colorOnError">@color/black_900</item>
+        <!--  Divider color -->
+        <item name="dividerVertical">@color/reply_white_50_alpha_020</item>
     </style>
-
-    <style name="CustomActionModeToolbar" parent="Widget.AppCompat.ActionMode">
-<!--        <item name="background">@color/colorSurface</item>-->
-        <item name="height">@dimen/app_bar_height</item>
-    </style>
-
-    <style name="CustomSnackBarStyle" parent="Widget.MaterialComponents.Snackbar">
-        <item name="backgroundTint">@color/colorOnSurface</item>
-        <item name="animationMode">slide</item>
-    </style>
-
-    <style name="CustomSnackBarButtonStyle" parent="@style/Widget.MaterialComponents.Button.TextButton.Snackbar">
-        <item name="android:textColor">?attr/colorPrimaryVariant</item>
-        <item name="actionButtonStyle">?attr/buttonStyle</item>
-    </style>
-
-    <style name="CustomSnackBarTextStyle" parent="Widget.MaterialComponents.Snackbar.TextView">
-        <item name="android:textColor">@color/colorSurface</item>
-    </style>
-
-    <style name="AppTheme.BackgroundStyle">
-        <item name="android:background">@color/colorBackground</item>
-    </style>
-
-    <style name="AppTheme.SurfaceStyle">
-        <item name="android:foreground">?android:attr/selectableItemBackground</item>
-        <item name="android:background">@color/colorSurface</item>
-    </style>
-
-    <style name="TextAppearance.CreateTitle" parent="@style/TextAppearance.MaterialComponents.Headline5">
-        <item name="android:textColor">@color/colorOnSurface</item>
-    </style>
-
-    <style name="TextAppearance.NoteTitle" parent="@style/TextAppearance.MaterialComponents.Headline6">
-        <item name="android:textColor">@color/colorOnSurface</item>
-    </style>
-
-    <style name="TextAppearance.NoteBody" parent="@style/TextAppearance.MaterialComponents.Body2">
-        <item name="android:textColor">@color/colorOnSurface</item>
-    </style>
-
-    <style name="CustomCardView" parent="Widget.MaterialComponents.CardView">
-        <item name="shapeAppearance">@style/ShapeAppearance.ThemeApp.MediumComponent.Rounded</item>
-    </style>
-
-    <style name="ShapeAppearance.ThemeApp.MediumComponent.Rounded" parent="ShapeAppearance.MaterialComponents.MediumComponent">
-        <item name="cornerFamilyBottomLeft">rounded</item>
-        <item name="cornerFamilyTopRight">rounded</item>
-        <item name="cornerFamilyTopLeft">cut</item>
-        <item name="cornerFamilyBottomRight">cut</item>
-        <item name="cornerSize">10dp</item>
-    </style>
-
-    <style name="CustomSearchView" parent="Widget.AppCompat.SearchView">
-        <item name="closeIcon">@drawable/ic_close</item>
-        <item name="queryBackground">@android:color/transparent</item>
-        <item name="searchIcon">@null</item>
-    </style>
-
 </resources>

@@ -3,12 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_delete"
-        android:icon="@drawable/ic_delete_outline"
-        android:title="Delete"
+        android:icon="@drawable/ic_delete_outline_24dp"
+        android:title="@string/delete_note"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_palette"
-        android:icon="@drawable/ic_color_palette"
-        android:title="Paint"
+        android:icon="@drawable/ic_color_palette_24dp"
+        android:title="@string/color_note"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_archive"
+        android:icon="@drawable/ic_archive_24dp"
+        android:title="@string/archive_note"
         app:showAsAction="ifRoom" />
 </menu>

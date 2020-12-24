@@ -14,28 +14,23 @@ class MultiSelectionManager @Inject constructor() {
     val multiSelectionState: StateFlow<MultiSelectionState>
         get() = _multiSelectionState
 
-    private val _lastSelectedNotes = MutableStateFlow<List<Note>>(emptyList())
+    private val _pendingNotes = MutableStateFlow<List<Note>>(emptyList())
 
     private val _selectedNotes = MutableStateFlow<ArrayList<Note>>(ArrayList())
-    val selectedNotes: StateFlow<ArrayList<Note>>
-        get() = _selectedNotes
+    val selectedNotes: List<Note>
+        get() = _selectedNotes.value
 
     private fun enableMultiSelection() {
         _multiSelectionState.value = MultiSelectionState.Enabled(_selectedNotes.value.size)
     }
 
     fun disableMultiSelection() {
-        if (_multiSelectionState.value != MultiSelectionState.Disabled)
-            _multiSelectionState.value = MultiSelectionState.Disabled
+        _multiSelectionState.value = MultiSelectionState.Disabled
     }
 
     fun isMultiSelectionEnabled() = _multiSelectionState.value != MultiSelectionState.Disabled
 
-    fun getSelectedNotes(): List<Note> = _selectedNotes.value
-
-    fun getLastSelectedNotes(): List<Note> = _lastSelectedNotes.value
-
-    fun isSelectedNotesEmpty() = _selectedNotes.value.size < 1
+    fun getPendingNotes(): List<Note> = _pendingNotes.value
 
     fun addOrRemoveIfExist(note: Note) {
 
@@ -54,12 +49,14 @@ class MultiSelectionManager @Inject constructor() {
     }
 
     fun clearSelectedNotes() {
-        _lastSelectedNotes.value = _selectedNotes.value.toList()
         _selectedNotes.value.clear()
     }
 
-    fun clearLastSelectedNotes() {
-        _lastSelectedNotes.value = emptyList()
+    fun clearPendingNotes() {
+        _pendingNotes.value = emptyList()
     }
 
+    fun setPendingNotes(vararg notes: Note) {
+        _pendingNotes.value = notes.toList()
+    }
 }

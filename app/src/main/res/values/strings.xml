@@ -1,46 +1,64 @@
 <resources>
     <string name="app_name">AdvancedNotes</string>
     <string name="create_a_new_note">Create a new note</string>
-    <string name="note_color_choose">Chose a note color</string>
+    <string name="note_color_choose">Choose a note color</string>
     <string name="select">Select</string>
     <string name="cancel">Cancel</string>
     <string name="reset">Reset</string>
+    <string name="delete">Delete</string>
     <string name="confirm">Confirm</string>
     <string name="yes">Yes</string>
     <string name="are_you_sure">Are you sure?</string>
     <string name="todo">todo</string>
     <string name="undo">Undo</string>
-    <string name="note_ellipsize">Note…</string>
-    <string name="title_ellipsize">Title…</string>
+    <string name="note">Note</string>
+    <string name="title">Title</string>
+
+    <string name="search_hint">Search notes…</string>
+
+    <string name="selected">%d selected</string>
+    <string name="last_edit">edited at %s</string>
 
 
+    <string name="item">Item</string>
+
+    <string name="list_item">list item</string>
+
+
+    <!--  View event actions messages  -->
     <string name="delete_successful_event_message">Selected notes are deleted.</string>
+    <string name="archived_successful_event_message">Notes are archived and unpinned.</string>
+    <string name="unarchived_successful_event_message">Notes are unarchived.</string>
     <string name="cancel_alarm_event_message">Alarm will be cancelled.</string>
     <string name="delete_note_event_message">Note will be deleted permanently.</string>
     <string name="successfully_copied_note_event_message">Note is successfully copied.</string>
-
-
-
     <string name="zero_selected_notes_error">There is not any marked note.</string>
-    <string name="search">Search</string>
-    <string name="search_hint">Search notes…</string>
+    <string name="confirm_reminder_past_time_error">The selected time and date must not be in the past.</string>
 
-
-    <string name="selected">%d selected</string>
-
-    <string name="last_edit">edited at %s</string>
+    <!-- Toolbar Actions  -->
+    <string name="layout_mode">Layout Mode</string>
     <string name="copy_note">Copy Note</string>
+    <string name="set_reminder">Set Reminder</string>
     <string name="delete_note">Delete Note</string>
-    <string name="item">Item…</string>
+    <string name="pin_note">Pin note</string>
+    <string name="archive_note">Archive</string>
+    <string name="color_note">Change color</string>
+    <!--  PopupMenu Actions   -->
+    <string name="hide_check_boxes">Hide check boxes</string>
+    <string name="delete_checked">Delete checked items</string>
+    <string name="uncheck_all">Uncheck all items</string>
 
+    <!--  Fragment labels  -->
+    <string name="notes">Notes</string>
+    <string name="search">Search</string>
+    <string name="details">Details</string>
+
+    <!-- Transitions -->
     <string name="transition_card_name_id">card_transition %s</string>
     <string name="transition_card_detail_name">card_transition</string>
     <string name="transition_fab_to_detail_name">fab_transition</string>
+    <string name="repeating">repeating</string>
+    <string name="interval">interval</string>
+    <string name="type">type</string>
 
-
-
-
-
-    <string name="set_reminder">Set Reminder</string>
-    <string name="list_item">list item</string>
 </resources>

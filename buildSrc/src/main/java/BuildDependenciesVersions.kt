@@ -2,7 +2,7 @@
  * Configuration version of all build dependencies
  */
 object BuildDependenciesVersions {
-    const val KOTLIN = "1.4.20"
+    const val KOTLIN = "1.4.21"
     const val APPCOMPAT = "1.2.0"
     const val MATERIAL = "1.3.0-alpha04"
     const val CONSTRAIN_LAYOUT = "2.0.2"
@@ -22,10 +22,11 @@ object BuildDependenciesVersions {
     const val DATASTORE_PREF = "1.0.0-alpha04"
 
     const val M_DIALOG = "3.3.0"
+    const val TRANSITION_KTX = "1.4.0-rc01"
 
     const val LIVEDATA_KTX = "2.2.0"
     const val PAGING = "3.0.0-alpha10"
-
+    const val INSETTER_DBX = "0.3.1"
     // Tests
     const val EXT = "1.1.2"
     const val JUNIT = "4.13.1"

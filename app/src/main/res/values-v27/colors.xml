@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="nav_bar_scrim">@color/status_bar_scrim</color>
+</resources>

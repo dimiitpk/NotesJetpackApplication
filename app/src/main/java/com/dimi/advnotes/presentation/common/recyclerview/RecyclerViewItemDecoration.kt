@@ -46,10 +46,7 @@ class RecyclerViewItemDecoration(
                 itemCount = state.itemCount
             )
             is StaggeredGridLayoutManager -> configSpacingForStaggeredGridLayoutManager(
-                outRect = outRect,
-                layoutManager = layoutManager,
-                layoutParams = view.layoutParams as StaggeredGridLayoutManager.LayoutParams,
-                position = parent.getChildAdapterPosition(view)
+                outRect = outRect
             )
             is LinearLayoutManager -> configSpacingForLinearLayoutManager(
                 outRect = outRect,
@@ -88,44 +85,12 @@ class RecyclerViewItemDecoration(
     }
 
     private fun configSpacingForStaggeredGridLayoutManager(
-        outRect: Rect,
-        layoutManager: StaggeredGridLayoutManager,
-        layoutParams: StaggeredGridLayoutManager.LayoutParams,
-        position: Int
+        outRect: Rect
     ) {
-        outRect.top = spacingPx/2
-        outRect.bottom = spacingPx/2
-        outRect.right = spacingPx/2
-        outRect.left = spacingPx/2
-//        val spanCount = layoutManager.spanCount
-//        val spanIndex = layoutParams.spanIndex
-//
-//        layoutParams.isFullSpan.let { isFullSpan ->
-//            if (isFullSpan)
-//                anyFullSpanItem = isFullSpan
-//        }
-//
-//        if (spanIndex == 0) {
-//            // left edge
-//            // should write left border
-//            outRect.left = spacingPx
-//        }
-//
-//        if (anyFullSpanItem) {
-//            // if its first row, first in a row and have full span
-//            if (spanIndex == 0 && position == 0)
-//                outRect.top = spacingPx
-//        } else {
-//            // first row and there is no fullSpan on any item
-//            // should write top border
-//            if (position < spanCount) {
-//                outRect.top = spacingPx
-//            }
-//        }
-//
-//        outRect.right = spacingPx
-//        // if (!(anyFullSpanItem && spanIndex == 0 && position == 0))
-//        outRect.bottom = spacingPx
+        outRect.top = spacingPx / 2
+        outRect.bottom = spacingPx / 2
+        outRect.right = spacingPx / 2
+        outRect.left = spacingPx / 2
     }
 
     /**

@@ -1,8 +1,6 @@
 package com.dimi.advnotes.data.database
 
-import androidx.lifecycle.LiveData
 import androidx.paging.PagingData
-import com.dimi.advnotes.domain.model.CheckItem
 import com.dimi.advnotes.domain.model.Note
 import kotlinx.coroutines.flow.Flow
 
@@ -18,13 +16,8 @@ interface CacheDataSource {
     suspend fun fetchOne(id: Long): Note
     suspend fun fetchAll(): List<Note>
 
-    fun observeNotes(query: String): Flow<PagingData<Note>>
+    fun observeNotes(archived: Boolean): Flow<PagingData<Note>>
 
     fun observeReminderValue(): Flow<Long?>
-
     suspend fun clearReminder(noteId: Long)
-
-    suspend fun delete(checkItem: CheckItem): Int
-
-    suspend fun deleteCheckItems(checkItems: List<CheckItem>)
 }

@@ -6,6 +6,7 @@ import android.content.Intent
 import com.dimi.advnotes.data.interactors.NoteUseCase
 import com.dimi.advnotes.presentation.common.NotificationHelper
 import com.dimi.advnotes.presentation.common.REMINDER_NOTE_ID_KEY
+import com.dimi.advnotes.presentation.common.ReminderManager
 import com.dimi.advnotes.util.Constants.INVALID_PRIMARY_KEY
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -18,6 +19,9 @@ class AlarmReceiver : BroadcastReceiver() {
 
     @Inject
     lateinit var noteUseCase: NoteUseCase
+
+    @Inject
+    lateinit var reminderManager: ReminderManager
 
     override fun onReceive(context: Context?, intent: Intent?) {
 
@@ -34,7 +38,10 @@ class AlarmReceiver : BroadcastReceiver() {
                     )
                 }
 
-                noteUseCase.clearReminderUseCase(id)
+                reminderManager.checkJustFiredReminder(note.reminder).let { shouldUpdate ->
+                    if (shouldUpdate)
+                        noteUseCase.updateNotes(listOf(note))
+                }
             }
         }
     }

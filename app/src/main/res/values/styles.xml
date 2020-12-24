@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <style name="AppTheme.Widget.NavigationView" parent="Widget.MaterialComponents.NavigationView">
+        <item name="insetForeground">@android:color/transparent</item>
+        <item name="elevation">0dp</item>
+    </style>
+
+    <style name="AppTheme.Widget.Toolbar.ActionMode" parent="Widget.AppCompat.ActionMode">
+        <item name="background">?attr/colorSurface</item>
+        <item name="backgroundSplit">?attr/colorOnSurface</item>
+    </style>
+
+    <style name="AppTheme.Dialog.FullScreen" parent="AppTheme">
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsFloating">false</item>
+    </style>
+
+    <style name="AppTheme.Widget.Snackbar" parent="Widget.MaterialComponents.Snackbar">
+        <item name="backgroundTint">?attr/colorOnSurface</item>
+        <item name="animationMode">slide</item>
+    </style>
+
+    <style name="AppTheme.Dialog.Alert" parent="Theme.MaterialComponents.DayNight.Dialog.Alert">
+        <item name="android:windowMinWidthMajor">97%</item>
+        <item name="android:windowMinWidthMinor">97%</item>
+    </style>
+
+    <style name="AppTheme.Widget.ActionBar.InActionMode" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="colorAccent">?attr/colorControlNormal</item>
+        <item name="actionModeCloseDrawable">@drawable/ic_close_24dp</item>
+        <item name="actionBarSize">@dimen/app_bar_height</item>
+    </style>
+
+    <style name="AppTheme.Button.Snackbar" parent="@style/Widget.MaterialComponents.Button.TextButton.Snackbar">
+        <item name="android:textColor">?attr/colorPrimaryVariant</item>
+        <item name="actionButtonStyle">?attr/buttonStyle</item>
+    </style>
+
+    <style name="AppTheme.TextView.Snackbar" parent="Widget.MaterialComponents.Snackbar.TextView">
+        <item name="android:textColor">?attr/colorSurface</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
+
+    <style name="AppTheme.BackgroundStyle">
+        <item name="android:background">?android:background</item>
+    </style>
+
+    <style name="AppTheme.SurfaceStyle">
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+        <item name="android:background">?attr/colorSurface</item>
+    </style>
+</resources>

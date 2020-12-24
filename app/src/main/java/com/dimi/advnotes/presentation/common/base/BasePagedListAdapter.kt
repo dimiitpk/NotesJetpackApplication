@@ -2,13 +2,9 @@ package com.dimi.advnotes.presentation.common.base
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.paging.AsyncPagingDataDiffer
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListUpdateCallback
 import androidx.recyclerview.widget.RecyclerView
-
-
 
 abstract class BasePagedListAdapter<T : Any>(
     itemsSame: (T, T) -> Boolean,
@@ -17,7 +13,7 @@ abstract class BasePagedListAdapter<T : Any>(
     override fun areItemsTheSame(old: T, new: T): Boolean = itemsSame(old, new)
     override fun areContentsTheSame(old: T, new: T): Boolean = contentsSame(old, new)
 }) {
-    private var recyclerView: RecyclerView? = null
+    var recyclerView: RecyclerView? = null
 
     fun getChildViewHolder(position: Int) = recyclerView?.findViewHolderForAdapterPosition(position)
 
@@ -43,6 +39,4 @@ abstract class BasePagedListAdapter<T : Any>(
         this.recyclerView = null
         super.onDetachedFromRecyclerView(recyclerView)
     }
-
-
 }

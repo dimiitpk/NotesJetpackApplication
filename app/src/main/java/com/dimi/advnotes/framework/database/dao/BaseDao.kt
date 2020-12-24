@@ -12,7 +12,6 @@ interface BaseDao<T> {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(items: List<T>): List<Long>
-
     @Update
     suspend fun update(Item: T): Int
 

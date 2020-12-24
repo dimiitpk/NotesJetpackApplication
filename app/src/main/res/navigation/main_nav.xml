@@ -2,21 +2,61 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_nav"
-    app:startDestination="@id/noteListFragment">
+    app:startDestination="@id/list_fragment">
 
     <fragment
-        android:id="@+id/noteListFragment"
-        android:name="com.dimi.advnotes.presentation.list.NoteListFragment"
-        android:label="NoteListFragment">
+        android:id="@+id/list_fragment"
+        android:name="com.dimi.advnotes.presentation.list.ListFragment"
+        android:label="@string/notes">
+        <argument
+            android:name="listType"
+            android:defaultValue="NOTES"
+            app:argType="com.dimi.advnotes.presentation.list.ListType" />
         <action
-            android:id="@+id/action_noteListFragment_to_detail_nav"
-            app:destination="@id/detail_nav"
-            app:popUpToInclusive="false">
-            <argument
-                android:name="noteId"
-                android:defaultValue="-1L"
-                app:argType="long" />
-        </action>
+            android:id="@+id/action_to_detail_fragment"
+            app:destination="@id/detail_fragment" />
+        <action
+            android:id="@+id/action_to_search_fragment"
+            app:destination="@id/search_fragment" />
     </fragment>
-    <include app:graph="@navigation/detail_nav" />
+    <fragment
+        android:id="@+id/search_fragment"
+        android:name="com.dimi.advnotes.presentation.search.SearchFragment"
+        android:label="@string/search" />
+    <action
+        android:id="@+id/action_global_listFragment"
+        app:destination="@id/list_fragment"
+        app:launchSingleTop="true"
+        app:popUpTo="@+id/main_nav"
+        app:popUpToInclusive="true" />
+    <fragment
+        android:id="@+id/detail_fragment"
+        android:name="com.dimi.advnotes.presentation.detail.DetailFragment"
+        android:label="@string/details">
+        <action
+            android:id="@+id/action_to_listFragment"
+            app:destination="@id/list_fragment"
+            app:popUpTo="@id/list_fragment"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="noteId"
+            android:defaultValue="-1L"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_to_reminderDialog"
+            app:destination="@id/reminder_dialog" />
+    </fragment>
+    <dialog
+        android:id="@+id/reminder_dialog"
+        android:name="com.dimi.advnotes.presentation.reminder.ReminderDialogFragment"
+        android:label="NoteReminderDialogFragment">
+        <action
+            android:id="@+id/action_to_detailFragment"
+            app:destination="@id/detail_fragment" />
+        <argument
+            android:name="reminder"
+            android:defaultValue="@null"
+            app:argType="com.dimi.advnotes.domain.model.Reminder"
+            app:nullable="true" />
+    </dialog>
 </navigation>

@@ -6,18 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
+import androidx.annotation.StyleRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.DialogFragment
-import com.dimi.advnotes.R
 import com.dimi.advnotes.presentation.MainActivity
 import com.dimi.advnotes.presentation.common.UIController
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import java.lang.ClassCastException
 
 abstract class BaseDialogFragment<B : ViewDataBinding>(
-    @LayoutRes
-    private val layoutId: Int
+    @LayoutRes private val layoutId: Int
 ) : DialogFragment() {
 
     private var _viewBinding: B? = null
@@ -52,7 +50,7 @@ abstract class BaseDialogFragment<B : ViewDataBinding>(
         super.onCreate(savedInstanceState)
         setStyle(
             STYLE_NO_TITLE,
-            R.style.ThemeOverlay_MaterialComponents_Dialog_Alert
+            0
         )
     }
 

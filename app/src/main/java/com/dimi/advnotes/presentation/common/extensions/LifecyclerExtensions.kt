@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.collect
 inline fun <T> LifecycleOwner.observe(liveData: LiveData<T>, crossinline observer: (T) -> Unit) {
     liveData.observe(
         this,
-        Observer {
+        {
             it?.let { t -> observer(t) }
         }
     )
@@ -34,5 +34,3 @@ inline fun <T> MutableLiveData<T>.mutation(actions: (T?) -> Unit) {
     actions(this.value)
     this.value = this.value
 }
-
-

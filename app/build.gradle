@@ -83,6 +83,8 @@ dependencies {
     implementation(Dependencies.LIVEDATA_KTX)
     implementation(Dependencies.PAGING)
     implementation(Dependencies.DATASTORE_PREF)
+    implementation(Dependencies.INSETTER_DBX)
+    implementation(Dependencies.TRANSITION_KTX)
 
 
 
@@ -101,4 +103,5 @@ dependencies {
 
     androidTestImplementation(TestAndroidDependencies.JUNIT)
     androidTestImplementation(TestAndroidDependencies.ESPRESSO)
+    implementation "org.jetbrains.kotlin:kotlin-reflect:1.4.20"
 }

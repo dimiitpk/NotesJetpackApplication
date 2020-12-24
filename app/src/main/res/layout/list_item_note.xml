@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="clickListener"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="longClickListener"
+            type="android.view.View.OnLongClickListener" />
+
+        <variable
+            name="note"
+            type="com.dimi.advnotes.domain.model.Note" />
+    </data>
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card"
+        pickCardBackgroundColor="@{note.color}"
+        state_checked="@{note.selected}"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checkable="true"
+        android:foreground="@android:color/transparent"
+        android:onClick="@{clickListener}"
+        android:onLongClick="@{longClickListener}"
+        android:transitionName="@{@string/transition_card_name_id(String.valueOf(note.id))}"
+        app:cardElevation="0dp"
+        app:cardForegroundColor="@android:color/transparent"
+        app:checkedIconTint="?attr/colorOnSurface"
+        app:strokeColor="@color/stroke_color"
+        app:strokeWidth="1dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/text_in_card_margin">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/title"
+                visible="@{note.title.length() > 0}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/text_in_card_half_margin"
+                android:clickable="false"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="@{note.title}"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@tools:sample/lorem" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/body"
+                visible="@{note.checkItems.size() == 0}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/title"
+                android:clickable="false"
+                android:text="@{note.body}"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/title"
+                app:layout_constraintTop_toBottomOf="@+id/title"
+                tools:text="@tools:sample/lorem" />
+
+            <LinearLayout
+                android:id="@+id/check_items_list"
+                visible="@{note.checkItems.size() != 0}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/body"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/title"
+                app:layout_constraintTop_toBottomOf="@+id/title" />
+
+            <com.google.android.material.textview.MaterialTextView
+                visible="@{note.reminder.timeInMillis != null}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/check_items_list"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="@dimen/five_dp"
+                android:background="@drawable/textview_background_stroke"
+                android:drawablePadding="@dimen/five_dp"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="@{note.reminder.toString()}"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="12sp"
+                app:drawableStartAlarmIcon="@{note.reminder.repeating != null ? @drawable/ic_loop_resized : @drawable/ic_alarm_on_resized}"
+                tools:text="Tuesday, 2.12.2020" />
+        </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

@@ -39,7 +39,11 @@ object Dependencies {
     const val MATERIAL_DIALOG_DATE_TIME = "com.afollestad.material-dialogs:datetime:${BuildDependenciesVersions.M_DIALOG}"
     const val MATERIAL_DIALOG_BOTTOM_SHEETS = "com.afollestad.material-dialogs:bottomsheets:${BuildDependenciesVersions.M_DIALOG}"
 
+    const val TRANSITION_KTX = "androidx.transition:transition-ktx:${BuildDependenciesVersions.TRANSITION_KTX}"
+
     const val LIVEDATA_KTX = "androidx.lifecycle:lifecycle-livedata-ktx:${BuildDependenciesVersions.LIVEDATA_KTX}"
+
+    const val INSETTER_DBX = "dev.chrisbanes:insetter-dbx:${BuildDependenciesVersions.INSETTER_DBX}"
 
     const val PAGING = "androidx.paging:paging-runtime-ktx:${BuildDependenciesVersions.PAGING}"
 }

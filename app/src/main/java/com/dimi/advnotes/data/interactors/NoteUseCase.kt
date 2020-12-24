@@ -1,14 +1,14 @@
 package com.dimi.advnotes.data.interactors
 
 data class NoteUseCase(
-    val observeNotesUseCase: ObserveNotesUseCase,
-    val insertOrUpdateNoteUseCase: InsertOrUpdateNoteUseCase,
-    val deleteNotesUseCase: DeleteNotesUseCase,
-    val deleteNoteUseCase: DeleteNoteUseCase,
-    val updateNotesUseCase: UpdateNotesUseCase,
-    val insertAll: InsertAll,
+    val observeNotes: ObserveNotesUseCase,
+    val insertOrUpdateNote: InsertOrUpdateNoteUseCase,
+    val deleteNotes: DeleteNotesUseCase,
+    val deleteNote: DeleteNoteUseCase,
+    val updateNotes: UpdateNotesUseCase,
+    val insertAllNotes: InsertAllNotesUseCase,
     val fetchSingleNote: FetchSingleNote,
-    val clearReminderUseCase: ClearReminderUseCase,
-    val observeRemindersUseCase: ObserveRemindersUseCase,
-    val fetchAllNotesUseCase: FetchAllNotesUseCase
+    val clearReminder: ClearReminderUseCase,
+    val observeReminders: ObserveRemindersUseCase,
+    val fetchAllNotes: FetchAllNotesUseCase
 )

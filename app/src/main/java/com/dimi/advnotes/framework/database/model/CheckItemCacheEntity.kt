@@ -29,6 +29,8 @@ data class CheckItemCacheEntity(
     val body: String,
     val checked: Boolean,
     var lastUpdated: Long = 0L,
+    @ColumnInfo(name = "order_")
+    var order: Int = 0,
 
     @ColumnInfo(name = CHECK_ITEM_NOTE_OWNER_COLUMN_NAME)
     var noteOwnerId: Long = 0

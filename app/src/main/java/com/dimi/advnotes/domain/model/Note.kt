@@ -2,6 +2,7 @@ package com.dimi.advnotes.domain.model
 
 import android.os.Parcelable
 import androidx.lifecycle.MutableLiveData
+import com.dimi.advnotes.presentation.common.extensions.generateUniqueId
 import com.dimi.advnotes.util.Constants
 import com.dimi.advnotes.util.Constants.DEFAULT_NOTE_COLOR
 import com.dimi.advnotes.util.Constants.DEFAULT_PRIMARY_KEY
@@ -16,6 +17,7 @@ data class Note(
     var body: String = "",
     var color: Int = DEFAULT_NOTE_COLOR,
     var pinned: Boolean = false,
+    var archived: Boolean = false,
     var createdAt: Date = Date(),
     var updatedAt: Date = Date(),
     var checkItems: List<CheckItem> = emptyList(),
@@ -48,10 +50,6 @@ data class Note(
         createdAt = Date()
         updatedAt = Date()
         pinned = Constants.DEFAULT_PINNED
-        checkItems.forEach {
-            it.id = 0
-            it.lastUpdated = 0L
-        }
         return true
     }
 
@@ -59,13 +57,28 @@ data class Note(
         pinned = !pinned
     }
 
-    fun addCheckItem() {
-        val newCheckItem = CheckItem()
-        checkItems = checkItems.toMutableList().apply { add(newCheckItem) }
-    }
+    fun toggleArchive() =
+        if (archived)
+            copy(archived = false)
+        else
+            copy(archived = true, pinned = false)
 
-    fun removeCheckItem(checkItem: CheckItem) {
-        checkItems = checkItems.toMutableList().apply { remove(checkItem) }
-    }
+//    fun createReminder(timeInMillis: Long?, repeating: Long?) {
+//        val timeMillis = timeInMillis?.let {
+//            if (timeInMillis == 0L) return@let null
+//            val savedCalendar = Calendar.getInstance().apply {
+//                this.timeInMillis = it
+//            }
+//            val currentCalendar = Calendar.getInstance()
+//            if (savedCalendar.before(currentCalendar))
+//                null
+//            else it
+//        }
+//        reminder = Reminder(
+//            noteId = id,
+//            requestCode = createdAt.generateUniqueId(),
+//            timeInMillis = timeMillis,
+//            repeating = null // OVO JE BILO !!! if (timeMillis == null || repeating == 0L) null else repeating
+//        )
+//    }
 }
-

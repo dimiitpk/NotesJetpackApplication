@@ -14,7 +14,7 @@ import com.dimi.advnotes.framework.database.model.NoteCacheEntity
         NoteCacheEntity::class,
         CheckItemCacheEntity::class
     ],
-    version = 27,
+    version = 30,
     exportSchema = false
 )
 @TypeConverters(TimestampConverter::class)

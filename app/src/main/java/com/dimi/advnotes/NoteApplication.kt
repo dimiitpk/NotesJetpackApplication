@@ -9,9 +9,6 @@ import android.os.Build
 import com.dimi.advnotes.presentation.common.CHANNEL_ID
 import com.dimi.advnotes.presentation.common.CHANNEL_NAME
 import dagger.hilt.android.HiltAndroidApp
-import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.newCoroutineContext
 
 @HiltAndroidApp
 class NoteApplication : Application() {

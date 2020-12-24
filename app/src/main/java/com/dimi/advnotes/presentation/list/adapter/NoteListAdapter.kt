@@ -6,18 +6,19 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.dimi.advnotes.R
+import com.dimi.advnotes.domain.model.Note
 import com.dimi.advnotes.presentation.common.base.BasePagedListAdapter
-import com.dimi.advnotes.presentation.list.NoteListViewModel
 import com.dimi.advnotes.presentation.list.adapter.holders.NoteSeparatorViewHolder
 import com.dimi.advnotes.presentation.list.adapter.holders.NoteViewHolder
 import com.dimi.advnotes.presentation.list.adapter.model.UiModel
+import com.google.android.material.card.MaterialCardView
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 
 @FlowPreview
 @ExperimentalCoroutinesApi
 class NoteListAdapter constructor(
-    private var viewModel: NoteListViewModel? = null,
+    private val interaction: Interaction? = null,
     var lifecycleOwner: LifecycleOwner? = null
 ) : BasePagedListAdapter<UiModel>(
     itemsSame = { old, new ->
@@ -29,7 +30,7 @@ class NoteListAdapter constructor(
 
     override fun onCreateViewHolder(parent: ViewGroup, inflater: LayoutInflater, viewType: Int) =
         when (viewType) {
-            R.layout.note_list_item -> NoteViewHolder(lifecycleOwner, inflater)
+            R.layout.list_item_note -> NoteViewHolder(lifecycleOwner, interaction, inflater)
             else -> {
                 NoteSeparatorViewHolder(inflater)
             }
@@ -46,7 +47,7 @@ class NoteListAdapter constructor(
         getItem(position)?.let { uiModel ->
             when (uiModel) {
                 is UiModel.NoteModel -> {
-                    viewModel?.let { (holder as NoteViewHolder).bind(it, uiModel.note) }
+                    (holder as NoteViewHolder).bind(uiModel.note)
                 }
                 is UiModel.SeparatorModel -> {
                     val viewHolder = (holder as NoteSeparatorViewHolder)
@@ -58,8 +59,8 @@ class NoteListAdapter constructor(
 
     override fun getItemViewType(position: Int): Int {
         return when (getItem(position)) {
-            is UiModel.NoteModel -> R.layout.note_list_item
-            is UiModel.SeparatorModel -> R.layout.note_separator_list_item
+            is UiModel.NoteModel -> R.layout.list_item_note
+            is UiModel.SeparatorModel -> R.layout.list_item_note_separator
             null -> throw UnsupportedOperationException("Unknown view")
         }
     }
@@ -86,6 +87,10 @@ class NoteListAdapter constructor(
         }
     }
 
+    fun getNoteOrNull(position: Int): Note? {
+        return (snapshot()[position] as? UiModel.NoteModel)?.note
+    }
+
     private inline fun actionOnSelectedNote(action: (Int) -> Unit) {
         snapshot().items.forEachIndexed { index, uiModel ->
             if (uiModel is UiModel.NoteModel) {
@@ -95,5 +100,12 @@ class NoteListAdapter constructor(
                 }
             }
         }
+    }
+
+    interface Interaction {
+
+        fun onItemSelected(view: MaterialCardView, position: Int, item: Note)
+
+        fun onItemSelectedByLongClick(position: Int, item: Note)
     }
 }

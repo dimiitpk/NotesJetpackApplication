@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <dimen name="minimum_touch_dp">48dp</dimen>
     <dimen name="app_bar_height">48dp</dimen>
+    <dimen name="app_bar_default_elevation">4dp</dimen>
     <dimen name="recycler_view_item_padding">10dp</dimen>
     <dimen name="staggered_recycler_view_item_padding">5dp</dimen>
     <dimen name="corner_radius">5dp</dimen>
@@ -14,6 +16,7 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="margin_in_toolbar">10dp</dimen>
     <dimen name="default_view_margin">16dp</dimen>
+    <dimen name="double_default_view_margin">32dp</dimen>
     <dimen name="button_in_linear_margin">6dp</dimen>
 
     <dimen name="card_stroke">1.5dp</dimen>

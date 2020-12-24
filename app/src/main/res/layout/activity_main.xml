@@ -7,10 +7,11 @@
         android:id="@+id/root_drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
+        app:elevation="0dp"
+        app:layout_edgeToEdge="@{true}"
         tools:openDrawer="left">
 
-        <androidx.fragment.app.FragmentContainerView
+        <fragment
             android:id="@+id/nav_host_fragment"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
@@ -20,9 +21,12 @@
 
         <com.google.android.material.navigation.NavigationView
             android:id="@+id/root_navigation_view"
+            style="@style/AppTheme.Widget.NavigationView"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            android:fitsSystemWindows="true" />
+            app:menu="@menu/activity_main_drawer"
+            app:paddingLeftSystemWindowInsets="@{true}"
+            app:paddingTopSystemWindowInsets="@{true}" />
     </androidx.drawerlayout.widget.DrawerLayout>
 </layout>

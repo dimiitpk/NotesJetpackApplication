@@ -19,9 +19,9 @@ class CheckItemCacheMapper @Inject constructor() : EntityMapper<CheckItemCacheEn
         domainModels: List<CheckItem>,
         noteId: Long = INVALID_PRIMARY_KEY,
         lastUpdate: Long? = null
-    ) =
-        domainModels.map { domainModel ->
-            mapToEntity(domainModel).apply {
+    ) = domainModels.mapIndexed { index, checkItem ->
+            mapToEntity(checkItem).apply {
+                order = index
                 if (noteId != INVALID_PRIMARY_KEY) this.noteOwnerId = noteId
                 lastUpdate?.let {
                     this.lastUpdated = it

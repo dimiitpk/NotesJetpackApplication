@@ -13,6 +13,7 @@ data class NoteCacheEntity(
     val body: String,
     val color: Int,
     val pinned: Boolean,
+    val archived: Boolean,
     val createdAt: Date,
     val updatedAt: Date,
     @Embedded(prefix = "reminder_")

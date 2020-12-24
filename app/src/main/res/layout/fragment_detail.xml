@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.dimi.advnotes.presentation.common.extensions.ConvertExtensionsKt" />
+
+        <variable
+            name="viewModel"
+            type="com.dimi.advnotes.presentation.detail.DetailViewModel" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/detail_container"
+        pickBackgroundColor="@{viewModel.note.color}"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:transitionName="@string/transition_card_detail_name"
+        app:cardElevation="0dp"
+        app:cardPreventCornerOverlap="false">
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="false"
+            app:layout_marginTopSystemWindowInsets="@{true}"
+            app:paddingLeftSystemWindowInsets="@{true}"
+            app:paddingRightSystemWindowInsets="@{true}">
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/app_bar_detail"
+                pickBackgroundColor="@{viewModel.note.color}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:liftOnScroll="true">
+
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/detail_toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@android:color/transparent"
+                    app:archived="@{viewModel.note.archived}"
+                    app:menu="@menu/fragment_detail_menu"
+                    app:navigationIcon="@drawable/ic_arrow_back_24dp"
+                    app:pinned="@{viewModel.note.pinned}"
+                    app:reminderSet="@{viewModel.note.reminder.timeInMillis != 0}" />
+            </com.google.android.material.appbar.AppBarLayout>
+
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/nested_scroll"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fillViewport="true"
+                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraint_detail_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:descendantFocusability="beforeDescendants"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    app:paddingBottomSystemWindowInsets="@{true}">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/title_input_field"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/text_in_card_margin"
+                        android:layout_marginTop="@dimen/text_in_card_margin"
+                        android:layout_marginEnd="@dimen/double_default_view_margin"
+                        android:layout_marginBottom="@dimen/text_in_card_margin"
+                        android:background="@android:color/transparent"
+                        android:ellipsize="end"
+                        android:hint="@string/title"
+                        android:singleLine="true"
+                        android:text="@={viewModel.note.title}"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="Note Title" />
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/input_field"
+                        gone="@{!viewModel.checkItems.empty}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/text_in_card_margin"
+                        android:background="@android:color/transparent"
+                        android:gravity="top|start"
+                        android:hint="@string/note"
+                        android:text="@={viewModel.note.body}"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/title_input_field" />
+
+                    <ImageView
+                        android:id="@+id/check_list_options"
+                        invisible="@{viewModel.checkItems.empty}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:contentDescription="@string/todo"
+                        android:src="@drawable/ic_more_dots_24dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/title_input_field"
+                        app:layout_constraintEnd_toEndOf="@+id/check_items_recycler_view"
+                        app:layout_constraintTop_toTopOf="@+id/title_input_field" />
+
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/check_items_recycler_view"
+                        visible="@{!viewModel.checkItems.empty}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="24dp"
+                        android:orientation="vertical"
+                        android:overScrollMode="never"
+                        app:itemDecorationSpacing="@{@dimen/two_dp}"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/title_input_field"
+                        tools:listitem="@layout/list_item_check_item" />
+
+                    <com.google.android.material.chip.Chip
+                        style="@style/Widget.MaterialComponents.Chip.Action"
+                        visible="@{!viewModel.checkItems.empty}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/default_view_margin"
+                        android:onClick="@{() -> viewModel.addNewCheckItem()}"
+                        android:text="@string/list_item"
+                        app:chipIcon="@drawable/ic_add_24dp"
+                        app:chipStrokeWidth="1dp"
+                        app:chipSurfaceColor="@android:color/transparent"
+                        app:layout_constraintEnd_toEndOf="@id/check_items_recycler_view"
+                        app:layout_constraintTop_toBottomOf="@id/check_items_recycler_view" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.core.widget.NestedScrollView>
+
+            <com.google.android.material.bottomappbar.BottomAppBar
+                android:id="@+id/bottom_app_bar"
+                barBackgroundColor="@{viewModel.note.color}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                app:contentInsetStartWithNavigation="@dimen/zero_dp"
+                app:hideOnScroll="true"
+                app:menu="@menu/fragment_detail_bottom_menu"
+                app:navigationIcon="@drawable/ic_color_palette_24dp"
+                app:paddingBottomSystemWindowInsets="@{true}">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/minimum_touch_dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/add_box"
+                        gone="@{!viewModel.checkItems.empty}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:contentDescription="@string/todo"
+                        android:focusable="true"
+                        android:onClick="@{() -> viewModel.addNewCheckItem()}"
+                        android:src="@drawable/ic_baseline_add_box_24" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/last_edit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:text="@{@string/last_edit(ConvertExtensionsKt.toSimpleString(viewModel.note.updatedAt))}"
+                        tools:text="@string/last_edit" />
+                </LinearLayout>
+            </com.google.android.material.bottomappbar.BottomAppBar>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

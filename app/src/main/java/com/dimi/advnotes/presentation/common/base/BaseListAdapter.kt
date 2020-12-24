@@ -14,7 +14,7 @@ abstract class BaseListAdapter<T>(
     override fun areContentsTheSame(old: T, new: T): Boolean = contentsSame(old, new)
 }) {
 
-    private var recyclerView: RecyclerView? = null
+    var recyclerView: RecyclerView? = null
 
     fun getChildViewHolder(position: Int) = recyclerView?.let {
         it.getChildAt(position)?.let { view ->

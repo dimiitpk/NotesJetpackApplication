@@ -23,7 +23,7 @@ class BootReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         if (intent.action == "android.intent.action.BOOT_COMPLETED") {
             GlobalScope.launch(Dispatchers.IO) {
-                val notes = notesUseCases.fetchAllNotesUseCase()
+                val notes = notesUseCases.fetchAllNotes()
                 val allRemindersValue = notes.sumOf {
                     it.reminder.timeInMillis ?: 0
                 }

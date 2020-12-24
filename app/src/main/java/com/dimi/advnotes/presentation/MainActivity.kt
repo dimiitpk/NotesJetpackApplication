@@ -1,162 +1,101 @@
 package com.dimi.advnotes.presentation
 
-import android.content.Context
 import android.os.Bundle
-import android.view.View
-import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
-import com.afollestad.materialdialogs.MaterialDialog
+import androidx.appcompat.view.ActionMode
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import com.dimi.advnotes.AppScopeCoroutineExceptionHandler
 import com.dimi.advnotes.AppScopeExceptionUIHandler
 import com.dimi.advnotes.R
 import com.dimi.advnotes.databinding.ActivityMainBinding
-import com.dimi.advnotes.presentation.common.AreYouSureCallback
-import com.dimi.advnotes.presentation.common.DialogCalendarCaptured
-import com.dimi.advnotes.presentation.common.DialogColorCaptured
-import com.dimi.advnotes.presentation.common.SnackbarUndoCallback
-import com.dimi.advnotes.presentation.common.TodoCallback
-import com.dimi.advnotes.presentation.common.UIController
-import com.dimi.advnotes.presentation.common.extensions.areYouSureDialog
-import com.dimi.advnotes.presentation.common.extensions.showColorPickerDialog
-import com.dimi.advnotes.presentation.common.extensions.showDatePickerDialog
-import com.dimi.advnotes.presentation.common.extensions.showTimePickerDialog
-import com.google.android.material.snackbar.BaseTransientBottomBar
-import com.google.android.material.snackbar.Snackbar
+import com.dimi.advnotes.presentation.common.base.BaseActivity
+import com.dimi.advnotes.presentation.common.extensions.contentView
+import com.dimi.advnotes.presentation.common.ActionModeCallback
+import com.dimi.advnotes.presentation.list.ListFragmentDirections
+import com.dimi.advnotes.presentation.list.ListType
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(), UIController, AppScopeExceptionUIHandler {
+class MainActivity :
+    BaseActivity<ActivityMainBinding>(R.layout.activity_main),
+    AppScopeExceptionUIHandler {
+
+    val viewBinding: ActivityMainBinding by contentView(R.layout.activity_main)
+
+    private var actionModeCallback: ActionModeCallback? = null
 
     @Inject
     lateinit var appScopeExceptionHandler: AppScopeCoroutineExceptionHandler
 
-    private var dialogInView: MaterialDialog? = null
-
-    private val currentNavigationFragment: Fragment?
-        get() = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
-            ?.childFragmentManager
-            ?.fragments
-            ?.first()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
         appScopeExceptionHandler.appScopeExceptionUIHandler = this
+
+        setupBinding()
     }
 
-    override fun showColorChoseDialog(colorPickerCallback: DialogColorCaptured) {
-        hideSoftKeyboard()
+    private fun setupBinding() {
+        viewBinding.run {
+            rootDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
 
-
-
-        val listOfAvailableColors = resources.getIntArray(R.array.note_background_colors)
-
-        dialogInView = showColorPickerDialog(
-            colors = listOfAvailableColors,
-            colorPickerCallback = colorPickerCallback,
-            onDismiss = {
-                dialogInView = null
+            rootNavigationView.setCheckedItem(R.id.home_frag)
+            rootNavigationView.setNavigationItemSelectedListener { menuItem ->
+                when (menuItem.itemId) {
+                    R.id.archive_frag -> {
+                        navController.navigate(
+                            ListFragmentDirections.actionGlobalListFragment(ListType.ARCHIVE)
+                        )
+                        rootDrawerLayout.close()
+                        true
+                    }
+                    R.id.home_frag -> {
+                        navController.navigate(
+                            ListFragmentDirections.actionGlobalListFragment(ListType.NOTES)
+                        )
+                        rootDrawerLayout.close()
+                        true
+                    }
+                    else -> false
+                }
             }
-        )
-    }
-
-    override fun showAreYouSureDialog(message: String, areYouSureCallback: AreYouSureCallback) {
-        dialogInView = areYouSureDialog(
-            message = message,
-            areYouSureCallback = areYouSureCallback,
-            onDismiss = {
-                dialogInView = null
-            }
-        )
-    }
-
-    override fun hideSoftKeyboard() {
-        if (currentFocus != null) {
-            val inputMethodManager = getSystemService(
-                Context.INPUT_METHOD_SERVICE
-            ) as InputMethodManager
-            inputMethodManager
-                .hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
         }
     }
 
-    override fun showSoftKeyboard(view: View) {
-        val inputMethodManager = getSystemService(
-            Context.INPUT_METHOD_SERVICE
-        ) as InputMethodManager
-        inputMethodManager.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
-    }
-
-    override fun showToast(message: String, length: Int) {
-        Toast.makeText(this, message, length).show()
-    }
-
-    override fun showSnackBar(message: String, length: Int) {
-        currentNavigationFragment?.let { Snackbar.make(it.requireView(), message, length).show() }
-    }
-
-    override fun showUndoSnackBar(
-        view: View,
-        message: Int,
-        length: Int,
-        snackbarUndoCallback: SnackbarUndoCallback?,
-        onDismissCallback: TodoCallback?
-    ) {
-        //setSupportActionBar()
-        Snackbar.make(view, message, length)
-            .setAction(R.string.undo) {
-                snackbarUndoCallback?.undo()
-            }
-            .addCallback(object : BaseTransientBottomBar.BaseCallback<Snackbar>() {
-                override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
-                    if (event != DISMISS_EVENT_ACTION)
-                        onDismissCallback?.execute()
-                }
-            })
-            .show()
-    }
-
-    override fun showTimePickerDialog(
-        calendarPickerCallback: DialogCalendarCaptured,
-        currentTime: Calendar?
-    ) {
-        dialogInView = showTimePickerDialog(
-            currentTime = currentTime,
-            calendarPickerCallback = calendarPickerCallback,
-            onDismiss = {
-                dialogInView = null
-            }
-        )
-    }
-
-    override fun showDatePickerDialog(
-        calendarPickerCallback: DialogCalendarCaptured,
-        currentDate: Calendar?
-    ) {
-        dialogInView = showDatePickerDialog(
-            currentDate = currentDate,
-            calendarPickerCallback = calendarPickerCallback,
-            onDismiss = {
-                dialogInView = null
-            }
-        )
+    override fun onBackPressed() {
+        if (viewBinding.rootDrawerLayout.isDrawerOpen(GravityCompat.START))
+            viewBinding.rootDrawerLayout.closeDrawer(GravityCompat.START)
+        else
+            super.onBackPressed()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        if (dialogInView != null) {
-            (dialogInView as MaterialDialog).dismiss()
-            dialogInView = null
-        }
+        actionModeCallback = null
         appScopeExceptionHandler.appScopeExceptionUIHandler = null
     }
 
     override fun handleException(exception: Throwable) {
         exception.message?.let { showSnackBar(it) }
+    }
+
+    override fun openDrawer() {
+        viewBinding.rootDrawerLayout.open()
+    }
+
+    override fun closeDrawer() {
+        viewBinding.rootDrawerLayout.close()
+    }
+
+    override fun startActionMode(
+        listener: ActionModeCallback.Listener
+    ): ActionMode? {
+        actionModeCallback = ActionModeCallback(listener)
+        return startSupportActionMode(actionModeCallback!!)
+    }
+
+    override fun clearActionMode() {
+        actionModeCallback?.listener = null
+        actionModeCallback = null
     }
 }

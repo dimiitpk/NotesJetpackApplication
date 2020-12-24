@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="clickListener"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="viewModel"
+            type="com.dimi.advnotes.presentation.detail.DetailViewModel" />
+
+        <variable
+            name="checkItem"
+            type="com.dimi.advnotes.domain.model.CheckItem" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/drag_indicator"
+            android:layout_width="wrap_content"
+            android:contentDescription="@string/todo"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/default_view_margin"
+            android:src="@drawable/ic_drag_indicator_24dp" />
+
+        <CheckBox
+            android:id="@+id/checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/drag_indicator"
+            android:buttonTint="?attr/colorControlNormal"
+            android:checked="@={checkItem.checked}"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            tools:checked="true" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textInputEditText"
+            strikeThrough="@{checkItem.checked}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@+id/delete_item"
+            android:layout_toEndOf="@+id/checkbox"
+            android:background="@android:color/transparent"
+            android:hint="@string/item"
+            android:inputType="textNoSuggestions"
+            android:singleLine="true"
+            android:text="@={checkItem.text}"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+            tools:text="@tools:sample/lorem" />
+
+        <ImageView
+            android:id="@+id/delete_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/default_view_margin"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:contentDescription="@string/todo"
+            android:focusable="true"
+            android:onClick="@{clickListener}"
+            android:src="@drawable/ic_close_24dp"
+            android:visibility="invisible" />
+
+    </RelativeLayout>
+</layout>

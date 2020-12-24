@@ -1,15 +1,11 @@
 package com.dimi.advnotes.presentation.common.extensions
 
 import androidx.appcompat.app.AppCompatActivity
-import com.afollestad.date.dayOfMonth
-import com.afollestad.date.month
-import com.afollestad.date.year
 import com.afollestad.materialdialogs.LayoutMode
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.bottomsheets.BottomSheet
 import com.afollestad.materialdialogs.callbacks.onDismiss
 import com.afollestad.materialdialogs.color.colorChooser
-import com.afollestad.materialdialogs.datetime.DateTimeCallback
 import com.afollestad.materialdialogs.datetime.datePicker
 import com.afollestad.materialdialogs.datetime.timePicker
 import com.dimi.advnotes.R

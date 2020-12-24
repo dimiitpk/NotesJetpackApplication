@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.dimi.advnotes.domain.model.RepeatType" />
+
+        <import type="com.dimi.advnotes.presentation.common.extensions.ConvertExtensionsKt" />
+
+        <variable
+            name="viewModel"
+            type="com.dimi.advnotes.presentation.reminder.ReminderViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/reset_reminder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_view_margin"
+            android:layout_marginEnd="@dimen/four_dp"
+            android:contentDescription="@string/todo"
+            android:foreground="?attr/selectableItemBackground"
+            android:onClick="@{() -> viewModel.resetReminder()}"
+            android:src="@drawable/ic_loop_24dp"
+            app:layout_constraintEnd_toStartOf="@id/repeat_switch"
+            app:layout_constraintHorizontal_bias="0.6"
+            app:layout_constraintStart_toEndOf="@id/time"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/default_view_margin"
+            android:onClick="@{()->viewModel.openTimePicker()}"
+            android:text="@{viewModel.reminder.timeString}"
+            android:textAppearance="?attr/textAppearanceHeadline4"
+            android:textColor="?attr/colorOnSurface"
+            android:textStyle="bold|italic"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="21:00" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_view_margin"
+            android:drawablePadding="@dimen/default_view_margin"
+            android:gravity="center"
+            android:onClick="@{()->viewModel.openDatePicker(false)}"
+            android:text="@{viewModel.reminder.dateString}"
+            android:textAllCaps="true"
+            android:textAppearance="?attr/textAppearanceBody2"
+            app:drawableStartCompat="@drawable/ic_calendar_24dp"
+            app:layout_constraintStart_toStartOf="@+id/time"
+            app:layout_constraintTop_toBottomOf="@+id/time"
+            tools:text="21. november" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/repeating"
+            android:textAppearance="?attr/textAppearanceBody2"
+            app:layout_constraintEnd_toEndOf="@id/repeat_switch"
+            app:layout_constraintStart_toStartOf="@+id/repeat_switch"
+            app:layout_constraintTop_toBottomOf="@+id/repeat_switch" />
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/repeat_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/default_view_margin"
+            android:checked="@{viewModel.reminder.repeat}"
+            android:onClick="@{() -> viewModel.toggleRepeating()}"
+            app:layout_constraintBottom_toBottomOf="@+id/date"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:checked="true" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/repeating_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/default_view_margin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/date"
+            app:visible="@{viewModel.reminder.repeat}">
+
+            <ImageView
+                android:id="@+id/reset_repeat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/four_dp"
+                android:contentDescription="@string/todo"
+                android:foreground="?attr/selectableItemBackground"
+                android:onClick="@{() -> viewModel.resetRepeatSettings()}"
+                android:src="@drawable/ic_loop_24dp"
+                app:layout_constraintBottom_toTopOf="@+id/repeating_menu"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/repeat_top_divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?attr/dividerVertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/repeating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/four_dp"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="@{viewModel.reminder.repeating.toString()}"
+                android:textAppearance="?attr/textAppearanceSubtitle1"
+                app:layout_constraintBottom_toBottomOf="@+id/reset_repeat"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/reset_repeat"
+                tools:text="Daily, Until 24.30.1" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/repeating_menu"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_view_margin"
+                android:hint="@string/interval"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/repeating">
+
+                <com.dimi.advnotes.presentation.common.ExposedDropDownTextView
+                    android:id="@+id/repeating_interval_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    app:textWithoutFilter="@{viewModel.reminder.repeatIntervalString()}" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:id="@+id/repeating_type_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="false"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/repeating_menu">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/repeating_type"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/four_dp"
+                    android:layout_weight="1"
+                    android:hint="@string/type">
+
+                    <com.dimi.advnotes.presentation.common.ExposedDropDownTextView
+                        android:id="@+id/repeating_type_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:inputType="none"
+                        app:textWithoutFilter="@{viewModel.reminder.repeatTypeString()}" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <View
+                    visible="@{viewModel.reminder.repeating.type != RepeatType.FOREVER}"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/four_dp"
+                    android:background="@android:color/transparent" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/repeating_type_value_cont1"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                    visible="@{viewModel.reminder.repeating.type == RepeatType.NO_OF_TIMES}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/four_dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ems="4"
+                        android:inputType="number"
+                        android:maxLength="3"
+                        android:text="@={viewModel.repeatNoOfTimes}" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/repeating_type_value_cont2"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                    visible="@{viewModel.reminder.repeating.type == RepeatType.UNTIL_DATE }"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/four_dp"
+                    android:foreground="?attr/selectableItemBackground">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:inputType="none"
+                        android:onClick="@{() -> viewModel.openDatePicker(true)}"
+                        android:text="@{viewModel.reminder.repeatUntilDateString}" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <View
+                android:id="@+id/repeat_bottom_divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/four_dp"
+                android:background="?attr/dividerVertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/repeating_type_container" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="end"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/repeating_container">
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                visible="@{viewModel.isExistingReminder}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/button_in_linear_margin"
+                android:layout_weight="1"
+                android:onClick="@{()->viewModel.deleteReminder()}"
+                android:text="@string/delete"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorOnSurface" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/button_in_linear_margin"
+                android:layout_weight="1"
+                android:onClick="@{()->viewModel.dismissDialog()}"
+                android:text="@string/cancel"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorOnSurface" />
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/button_in_linear_margin"
+                android:layout_weight="1"
+                android:onClick="@{()->viewModel.confirmReminder()}"
+                android:text="@string/confirm"
+                android:textAllCaps="false"
+                android:textAppearance="?attr/textAppearanceBody2" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

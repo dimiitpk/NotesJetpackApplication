@@ -11,7 +11,6 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import com.dimi.advnotes.presentation.MainActivity
 import com.dimi.advnotes.presentation.common.UIController
-import java.lang.ClassCastException
 
 abstract class BaseFragment<B : ViewDataBinding>(
     @LayoutRes

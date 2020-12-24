@@ -1,30 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryVariant">#3700B3</color>
-    <color name="colorOnPrimary">#FFFFFF</color>
-    <color name="colorSecondary">#03DAC6</color>
-    <color name="colorSecondaryVariant">#018786</color>
-    <color name="colorOnSecondary">#000000</color>
-    <color name="colorError">#B00020</color>
-    <color name="colorOnError">#FFFFFF</color>
-    <color name="colorSurface">#FFFFFF</color>
-    <color name="colorOnSurface">#000000</color>
-    <color name="colorBackground">#FFFFFF</color>
-    <color name="colorOnBackground">#000000</color>
-    <color name="colorStrokeDefault">#80000000</color>
 
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="purple_200">#bb86fc</color> <!--Color primary (dark)-->
+    <color name="purple_500">#6200ee</color> <!--Color primary (light)-->
+    <color name="purple_600">#4b01d0</color> <!--Color primary variant (dark)-->
+    <color name="purple_700">#3700b3</color> <!--Color primary variant (light)-->
+
+    <color name="green_200">#03dac6</color> <!--Color secondary-->
+    <color name="green_500">#018786</color> <!--Color secondary variant-->
+
+    <color name="red_200">#cf6679</color> <!--Color error (dark)-->
+    <color name="red_600">#b00020</color> <!--Color error (light)-->
+
+    <!--Color surface (light), color on error (light), -->
+    <!--color on surface (dark), color on surface (dark)-->
+    <color name="white_50">#ffffff</color>
+
+    <color name="black_800">#121212</color><!--Color surface (dark)-->
+
+    <!--Color on secondary (light), color on background (light),-->
+    <!--color on surface (light)-->
+    <color name="black_900">#000000</color>
+
+    <!--  Dividers color  -->
+    <color name="reply_white_50_alpha_020">#33FFFFFF</color>
+    <color name="reply_black_900_alpha_020">#33000000</color>
+
 
     <color name="def_color">#FFFFFF</color>
-    <color name="red">#F16964</color>
-    <color name="orange">#DF7525</color>
-    <color name="yellow">#CDA926</color>
-    <color name="light_green">#83D82D</color>
-    <color name="cyan">#28D6C8</color>
-    <color name="blue">#3188D5</color>
-    <color name="purple">#A636E3</color>
+    <color name="red">#EF9A9A</color>
+    <color name="orange">#FFCC80</color>
+    <color name="yellow">#FFF59D</color>
+    <color name="light_green">#A5D6A7</color>
+    <color name="cyan">#80CBC4</color>
+    <color name="blue">#90CAF9</color>
+    <color name="purple">#CE93D8</color>
 
-    <color name="nav_bar">#33000000</color>
+    <color name="system_ui_scrim_light">#E3ffffff</color>
+    <color name="system_ui_scrim_dark">#C3121212</color>
+
+    <color name="status_bar_scrim">@color/system_ui_scrim_light</color>
+    <color name="nav_bar_scrim">@color/system_ui_scrim_dark</color>
+
 </resources>

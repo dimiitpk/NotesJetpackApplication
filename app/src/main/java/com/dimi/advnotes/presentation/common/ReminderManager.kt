@@ -6,10 +6,13 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import com.dimi.advnotes.domain.model.DEFAULT_REPEAT_NUMBER_TIMES
 import com.dimi.advnotes.domain.model.Reminder
+import com.dimi.advnotes.domain.model.RepeatType
 import com.dimi.advnotes.presentation.AlarmReceiver
 import com.dimi.advnotes.presentation.BootReceiver
 import com.dimi.advnotes.util.Constants.INVALID_PRIMARY_KEY
+import java.util.*
 
 const val REMINDER_NOTE_ID_KEY = "reminder_key_id"
 
@@ -24,7 +27,7 @@ class ReminderManager(val context: Context) {
                 alarmManager.setRepeating(
                     AlarmManager.RTC_WAKEUP,
                     reminder.timeInMillis!!,
-                    repeating,
+                    repeating.interval.value,
                     alarmIntent
                 )
             } ?: alarmManager.setExactAndAllowWhileIdle(
@@ -42,7 +45,6 @@ class ReminderManager(val context: Context) {
 
     private fun getPendingIntent(reminder: Reminder): PendingIntent {
         return Intent(context, AlarmReceiver::class.java).let { intent ->
-
             intent.putExtra(REMINDER_NOTE_ID_KEY, reminder.noteId)
 
             PendingIntent.getBroadcast(
@@ -54,18 +56,58 @@ class ReminderManager(val context: Context) {
         }
     }
 
+    /**
+     * When reminder is fired, check reminder for repeating, cancel if needed
+     * @return true if reminder need to be updated in db, false otherwise
+     */
+    fun checkJustFiredReminder(reminder: Reminder): Boolean {
+        return if (isReminderValid(reminder)) {
+            reminder.repeating?.let { repeating ->
+                when (repeating.type) {
+                    RepeatType.NO_OF_TIMES -> {
+                        if (repeating.noOfTimes >= DEFAULT_REPEAT_NUMBER_TIMES)
+                            repeating.noOfTimes--
+
+                        if (repeating.noOfTimes < DEFAULT_REPEAT_NUMBER_TIMES)
+                            cancelReminder(reminder)
+
+                        true
+                    }
+                    RepeatType.UNTIL_DATE -> {
+                        repeating.untilCertainDate?.let { untilDate ->
+                            val currentDate = Calendar.getInstance()
+                            if (currentDate >= untilDate) {
+                                cancelReminder(reminder)
+                            }
+                        } ?: run { cancelReminder(reminder) }
+                        true
+                    }
+                    else -> false
+                }
+            } ?: run {
+                cancelReminder(reminder)
+                true
+            }
+        } else
+            false
+    }
+
+    /**
+     * If pending intent is started cancel it and resetReminder
+     * otherwise just reset reminder
+     */
     fun cancelReminder(reminder: Reminder) {
         if (isReminderValid(reminder)) {
             getStartedAlarmIntent(reminder)?.let { alarmIntent ->
                 alarmManager.cancel(alarmIntent)
                 resetReminder(reminder)
-            }
+            } ?: resetReminder(reminder)
         }
     }
 
-    private fun getStartedAlarmIntent(reminder: Reminder) =
+    fun getStartedAlarmIntent(reminder: Reminder): PendingIntent? =
         Intent(context, AlarmReceiver::class.java).let { intent ->
-            PendingIntent.getService(
+            PendingIntent.getBroadcast(
                 context, reminder.requestCode, intent,
                 PendingIntent.FLAG_NO_CREATE
             )

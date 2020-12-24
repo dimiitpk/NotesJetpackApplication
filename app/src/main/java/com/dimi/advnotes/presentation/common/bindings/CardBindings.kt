@@ -5,7 +5,6 @@ import androidx.databinding.BindingAdapter
 import com.dimi.advnotes.R
 import com.google.android.material.card.MaterialCardView
 
-
 @BindingAdapter("strokeWidth")
 fun MaterialCardView.setStrokeWidth(
     @Dimension width: Float
@@ -20,7 +19,6 @@ fun MaterialCardView.pickCardBackgroundColor(index: Int) {
 
     setCardBackgroundColor(color)
 }
-
 
 @BindingAdapter("state_checked")
 fun MaterialCardView.setStateChecked(checked: Boolean) {
