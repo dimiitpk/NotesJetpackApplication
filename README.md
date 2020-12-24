@@ -17,6 +17,6 @@ Work in progress.
 * Working with Flows, StateFlow, SharedFlow..
 * Schedule repeating and one-time alarms [AlarmManager](https://developer.android.com/training/scheduling/alarms)
   * Still experimenting with AlarmManager..
-  * Every phone manufacturer has a different saving battery policy, by killing app and AlarmManager with it.
+  * Every phone manufacturer has a different saving battery policy, e.g killing app and AlarmManager with it.
 
 ## 
