@@ -4,6 +4,7 @@ Work in progress.
 
 ## 
 
+* Android Jetpack Components and AndroidX
 * Theming app by [Material Design Principles](https://material.io/)
 * MVVM architecture pattern
 * Dependency injection using [Hilt](https://developer.android.com/training/dependency-injection/hilt-android)
@@ -15,6 +16,7 @@ Work in progress.
 * Asynchronous tasks with [Kotlin coroutines](https://developer.android.com/kotlin/coroutines)
 * Handling pagination, separators, etc [Paging 3](https://developer.android.com/topic/libraries/architecture/paging/v3-overview)
 * Working with Flows, StateFlow, SharedFlow..
+* RecylcerView with DiffUtil, drag and drop, swipe to dismiss and more..
 * Schedule repeating and one-time alarms [AlarmManager](https://developer.android.com/training/scheduling/alarms)
   * Still experimenting with AlarmManager..
   * Every phone manufacturer has a different saving battery policy, e.g killing app and AlarmManager with it.
