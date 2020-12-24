@@ -16,7 +16,7 @@ Work in progress.
 * Handling pagination, separators, etc [Paging 3](https://developer.android.com/topic/libraries/architecture/paging/v3-overview)
 * Working with Flows, StateFlow, SharedFlow..
 * Schedule repeating and one-time alarms [AlarmManager](https://developer.android.com/training/scheduling/alarms)
- * Still experimenting with AlarmManager..
- * Every phone manufacturer has a different saving battery policy, by killing app and AlarmManager with it.
+  * Still experimenting with AlarmManager..
+  * Every phone manufacturer has a different saving battery policy, by killing app and AlarmManager with it.
 
 ## 
