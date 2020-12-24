@@ -7,6 +7,7 @@ Work in progress.
 * Android Jetpack Components and AndroidX
 * Theming app by [Material Design Principles](https://material.io/)
 * MVVM architecture pattern
+* DataBinding
 * Dependency injection using [Hilt](https://developer.android.com/training/dependency-injection/hilt-android)
 * Navigating through application with [Navigation Component](https://developer.android.com/guide/navigation)
   * Shared Element Transitions
