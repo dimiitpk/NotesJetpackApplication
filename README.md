@@ -27,9 +27,8 @@ Work in progress.
 <img src=pictures/notes_dark.png width=250 >
 <img src=pictures/notes_linear_dark.png width=250 >
 <img src=pictures/multi_selection.png width=250 >
-
-<img src=pictures/drawer_light.png width=250 >
-
+<img src=pictures/archive_light.png width=250 >
+<img src=pictures/drawer_dark.png width=250 >
 <img src=pictures/details.png width=250 >
 <img src=pictures/details_checkitem.png width=250 >
 <img src=pictures/color_picker.png width=250 >
