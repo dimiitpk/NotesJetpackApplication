@@ -23,12 +23,6 @@
         android:id="@+id/search_fragment"
         android:name="com.dimi.advnotes.presentation.search.SearchFragment"
         android:label="@string/search" />
-    <action
-        android:id="@+id/action_global_listFragment"
-        app:destination="@id/list_fragment"
-        app:launchSingleTop="true"
-        app:popUpTo="@+id/main_nav"
-        app:popUpToInclusive="true" />
     <fragment
         android:id="@+id/detail_fragment"
         android:name="com.dimi.advnotes.presentation.detail.DetailFragment"
@@ -59,4 +53,10 @@
             app:argType="com.dimi.advnotes.domain.model.Reminder"
             app:nullable="true" />
     </dialog>
+    <action
+        android:id="@+id/action_global_listFragment"
+        app:destination="@id/list_fragment"
+        app:launchSingleTop="true"
+        app:popUpTo="@+id/main_nav"
+        app:popUpToInclusive="true" />
 </navigation>

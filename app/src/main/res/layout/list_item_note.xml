@@ -49,7 +49,7 @@
                 android:layout_marginBottom="@dimen/text_in_card_half_margin"
                 android:clickable="false"
                 android:ellipsize="end"
-                android:singleLine="true"
+                android:maxLines="2"
                 android:text="@{note.title}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                 app:layout_constraintEnd_toEndOf="parent"
